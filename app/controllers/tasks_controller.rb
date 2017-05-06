@@ -11,12 +11,23 @@ class TasksController < ApplicationController
     current_date = Date.today
     sixth_date = str_date + 430.days
     seventh_date = str_date + 530.days
+    last_service = "02 May 2017".to_datetime
     json_resp = {
+      model: 'FZ S V2',
       buy_date: stringFormat(str_date),
-      next_service: stringFormat(sixth_date),
-      future_service: stringFormat(seventh_date)
+      last_service: {
+        date: stringFormat(last_service),
+        days_past: Date.today - last_service
+      },
+      next_service: {
+        date: stringFormat(sixth_date),
+        days_left: sixth_date - Date.today
+      },
+      future_service: {
+        date: stringFormat(seventh_date),
+        days_left: seventh_date - Date.today
+      }
     }
-
     render json: json_resp
   end
 
